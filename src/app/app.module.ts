@@ -9,12 +9,12 @@ import { DogComponent } from './dog/dog.component';
 
 const appRoutes: Routes = [
   {
-    path: 'dogs',
+    path: 'dog',
     component: DogComponent,
     data: { title: 'Dog List' }
   },
   { path: '',
-    redirectTo: '/dogs',
+    redirectTo: '/dog',
     pathMatch: 'full'
   }
 ];

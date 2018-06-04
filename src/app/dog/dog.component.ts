@@ -13,9 +13,13 @@ export class DogComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('/api/breeds').subscribe(data => {
+    this.http.get('/api/breed').subscribe(data => {
       console.log('breeds: ' + data);
       this.breeds = data;
- });
+    });
+    this.http.get('/api/dog').subscribe(data => {
+      console.log('dogs: ' + data);
+      this.dogs = data;
+    });
   }
 }

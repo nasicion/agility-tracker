@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/dogs', express.static(path.join(__dirname, 'dist')));
+app.use('/dog', express.static(path.join(__dirname, 'dist')));
 app.use('/api/dog', dogRoutes);
 app.use('/api/breed', breedRoutes);
 
