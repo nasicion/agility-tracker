@@ -20,6 +20,22 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
+/* filter dogs */
+router.get('/filter/:filter', function(req, res, next) {
+//https://stackoverflow.com/questions/41390758/mongoose-find-document-with-two-fields-with-one-search-parameter?rq=1
+  var query = {$or:[
+      {name:{$regex: req.params.filter, $options: 'i'}},
+      {pedigreeName:{$regex: req.params.filter, $options: 'i'}},
+      {breed:{$regex: req.params.filter, $options: 'i'}},
+      {owner:{$regex: req.params.filter, $options: 'i'}}
+    ]}
+
+  Dog.find(query, function(err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
 /* SAVE DOG */
 router.post('/', function(req, res, next) {
   Dog.create(req.body, function(err, post) {

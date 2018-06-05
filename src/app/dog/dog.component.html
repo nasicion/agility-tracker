@@ -1,3 +1,39 @@
-<p>
-  dog works!
-</p>
+<div class="top-space">
+  <div *ngIf="dogs; else noDogs">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm">
+          <input class="form-control" type="text" name="search" placeholder="Search dog" (keyup)="filterDogs($event)"/>
+        </div>
+        <div class="col-sm"></div>
+        <div class="col-sm"></div>
+      </div>
+      <div class="row top-space">
+        <div class="col-sm">
+          <table class="table-hover table-striped table">
+            <thead class="thead-light">
+              <td>Id</td>
+              <td>Pedigree</td>
+              <td>Name</td>
+              <td>Owner</td>
+              <td>Breed</td>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dog of dogs" (click)="dogSelection(dog._id)">
+                <td>{{ dog._id }}</td>
+                <td>{{ dog.pedigree }}</td>
+                <td>{{ dog.pedigreeName }} ({{ dog.name }})</td>
+                <td>{{ dog.owner }}</td>
+                <td>{{ dog.breed }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <ng-template #noDogs>
+        <h1>No Dogs :(</h1>
+      </ng-template>
+    </div>
+  </div>
+</div>

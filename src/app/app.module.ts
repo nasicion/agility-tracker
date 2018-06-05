@@ -6,6 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { DogComponent } from './dog/dog.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { DogDetailComponent } from './dog-detail/dog-detail.component';
 
 const appRoutes: Routes = [
   {
@@ -13,16 +16,25 @@ const appRoutes: Routes = [
     component: DogComponent,
     data: { title: 'Dog List' }
   },
+  {
+    path: 'dog/:id',
+    component: DogDetailComponent,
+    data: { title: 'Dog Detail' }
+  },
   { path: '',
-    redirectTo: '/dog',
-    pathMatch: 'full'
-  }
+    component: DashboardComponent
+  },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    DogComponent
+    DogComponent,
+    DashboardComponent,
+    NotFoundComponent,
+    DogDetailComponent
   ],
   imports: [
     BrowserModule,

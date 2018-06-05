@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && nodemon ./bin/www.js",
+    "old_start": "ng build --watch & nodemon ./bin/www.js",
+    "client":"ng serve --proxy-config server.conf.json",
+    "server":"nodemon ./bin/www.js",
+    "start":"npm-run-all -p client server",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

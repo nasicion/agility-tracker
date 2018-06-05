@@ -1,0 +1,13 @@
+
+.centered {
+  margin: 8em;
+  text-align: center;
+}
+
+.top-space {
+  margin-top: 2em;
+}
+
+table > tbody > tr {
+  cursor: pointer;
+}
