@@ -29,3 +29,7 @@ table > tbody > tr {
 .dog-detail .data {
   margin: 0 2em;
 }
+
+.dog-detail .input-group-text {
+  width: 8em;
+}
