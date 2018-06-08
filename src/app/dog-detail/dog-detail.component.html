@@ -1,3 +1,50 @@
-<div class="container-fluid">
-  <h1>{{dog.name}}</h1>
+<div class="container-fluid dog-detail">
+  <back-button></back-button>
+  <div class="row">
+    <div class="data">
+      <h1>{{dog.pedigreeName}}</h1>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Pedigree</span>
+        </div>
+        <input [(ngModel)]="dog.pedigree" type="text" class="form-control" placeholder="Pedigree" aria-label="Pedigree" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Pedigree Name</span>
+        </div>
+        <input [(ngModel)]="dog.pedigreeName" type="text" class="form-control" placeholder="Pedigree Name" aria-label="Pedigree Name" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Name</span>
+        </div>
+        <input [(ngModel)]="dog.name" type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Owner</span>
+        </div>
+        <input [(ngModel)]="dog.owner" [ngbTypeahead]="searchOwner"
+          type="text" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Breed</span>
+        </div>
+        <select [(ngModel)]="dog.breed" class="custom-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option *ngFor="let breed of breeds" value="{{breed}}">{{breed}}</option>
+        </select>
+      </div>
+
+
+
+    </div>
+  </div>
 </div>

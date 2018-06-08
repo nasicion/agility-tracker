@@ -5,6 +5,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var dogRoutes = require('./routes/dog.routes');
+var ownerRoutes = require('./routes/owner.routes');
 var breedRoutes = require('./routes/breed.routes');
 var app = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/dog', express.static(path.join(__dirname, 'dist')));
 app.use('/api/dog', dogRoutes);
+app.use('/api/owner', ownerRoutes);
 app.use('/api/breed', breedRoutes);
 
 // catch 404 and forward to error handler

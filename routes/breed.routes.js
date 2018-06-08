@@ -5,7 +5,7 @@ var breeds = JSON.parse(fs.readFileSync('data/breeds.json','utf8'));
 
 /* GET SINGLE BOOK BY ID */
 router.get('/', function(req, res, next) {
-  res.json(breeds);
+  res.json(breeds.breeds);
 });
 
 module.exports = router;

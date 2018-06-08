@@ -11,3 +11,7 @@
 table > tbody > tr {
   cursor: pointer;
 }
+
+.dog-detail .data {
+  margin: 0 2em;
+}
