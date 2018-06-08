@@ -30,12 +30,15 @@ export class DogDetailComponent implements OnInit {
     });
   }
 
-  searchOwner = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : [])
-    );
-  }
+//https://stackoverflow.com/questions/41814182/extract-data-from-json-for-ng-bootstrap-typeahead
+//https://ng-bootstrap.github.io/#/components/typeahead/examples
+//https://codecraft.tv/courses/angular/http/http-with-observables/
+  searchOwner = [];
+  // (text$: Observable<string>) =>
+  //   text$.pipe(
+  //     debounceTime(200),
+  //     distinctUntilChanged(),
+  //     map(term => term.length < 2 ? []
+  //       : [])
+  //   );
 }
