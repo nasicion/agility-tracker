@@ -19,6 +19,11 @@ const appRoutes: Routes = [
     data: { title: 'Dog List' }
   },
   {
+    path: 'dog/new',
+    component: DogDetailComponent,
+    data: { title: 'Dog Detail' }
+  },
+  {
     path: 'dog/:id',
     component: DogDetailComponent,
     data: { title: 'Dog Detail' }

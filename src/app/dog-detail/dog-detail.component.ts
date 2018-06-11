@@ -31,17 +31,29 @@ export class DogDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dog = this.route.params.subscribe(params => {
-      this.http.get('/api/dog/' + params['id']).subscribe(data => {
-        this.dog = data;
-      });
+    this.dog = {};
+    this.route.params.subscribe(params => {
+
+      if(!isNaN(params['id'])) {
+        this.http.get('/api/dog/' + params['id']).subscribe(data => {
+          this.dog = data;
+        });
+      }
     });
     this.http.get('/api/breed').subscribe(data => {
       this.breeds = data;
     });
   }
 
-  parseOwnerSearch = (value: any) => value.name + ' ' + value.lastname || '';
+  parseOwnerSearch = (value: any) => {
+    if(value.firstname) {
+        return value.firstname + ' ' + value.lastname
+    } else if(value) {
+      return value;
+    } else {
+      '';
+    }
+  };
   //https://stackoverflow.com/questions/41814182/extract-data-from-json-for-ng-bootstrap-typeahead
   //https://ng-bootstrap.github.io/#/components/typeahead/examples
   //https://codecraft.tv/courses/angular/http/http-with-observables/

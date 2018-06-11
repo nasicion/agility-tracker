@@ -3,8 +3,7 @@ var ObjectIdSchema = mongoose.Schema.ObjectId;
 var ObjectId = mongoose.Types.ObjectId;
 
 var OwnerSchema = new mongoose.Schema({
-  _id: {type:ObjectIdSchema, default: new ObjectId()},
-  name: String,
+  firstname: String,
   lastname: String,
   motherLastname: String,
   identityDocument: { type: String, index: { unique: true }},

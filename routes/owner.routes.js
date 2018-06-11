@@ -24,7 +24,7 @@ router.get('/:id', function(req, res, next) {
 router.get('/filter/:filter', function(req, res, next) {
 //https://stackoverflow.com/questions/41390758/mongoose-find-document-with-two-fields-with-one-search-parameter?rq=1
   var query = {$or:[
-      {name:{$regex: req.params.filter, $options: 'i'}},
+      {firstname:{$regex: req.params.filter, $options: 'i'}},
       {lastname:{$regex: req.params.filter, $options: 'i'}}
     ]}
 
@@ -36,7 +36,7 @@ router.get('/filter/:filter', function(req, res, next) {
 
 /* SAVE Owner */
 router.post('/', function(req, res, next) {
-  Owner.create(req.body, function(err, post) {
+  Owner.create(new Owner(req.body), function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
