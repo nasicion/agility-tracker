@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var DogSchema = new mongoose.Schema({
-  _id: Number,
+  id: {type: Number, index:true, unique: true, sparse: true}, //partialFilterExpression ensures that null values doesn't count as repeated values
   name: String,
   pedigreeName: String,
   pedigree: String,

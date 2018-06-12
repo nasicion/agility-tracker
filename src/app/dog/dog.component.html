@@ -7,7 +7,7 @@
       <div class="col-sm"></div>
       <div class="col-sm" style="text-align:right">
         <button type="button" name="button" class="btn btn-outline-success">
-          Add
+          Add <i class="fas fa-plus"></i>
         </button>
       </div>
     </div>
@@ -15,17 +15,17 @@
       <div class="col-sm">
         <table class="table-hover table-striped table">
           <thead class="thead-light">
-            <td>Id</td>
-            <td>Pedigree</td>
+            <!-- <td>Id</td> -->
             <td>Name</td>
+            <td>Pedigree</td>
             <td>Owner</td>
             <td>Breed</td>
           </thead>
           <tbody>
             <tr *ngFor="let dog of dogs" (click)="dogSelection(dog._id)">
-              <td>{{ dog._id }}</td>
-              <td>{{ dog.pedigree }}</td>
+              <!-- <td>{{ dog._id }}</td> -->
               <td>{{ dog.pedigreeName }} ({{ dog.name }})</td>
+              <td>{{ dog.pedigree }}</td>
               <td>{{ dog.owner }}</td>
               <td>{{ dog.breed }}</td>
             </tr>

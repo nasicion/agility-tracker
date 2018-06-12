@@ -13,6 +13,8 @@ import 'rxjs/add/operator/switchMap';
 
 import { BackButtonComponent } from "../back-button/back-button.component";
 import { OwnerService } from "../owner.service";
+import { DogService } from "../dog.service";
+
 
 @Component({
   selector: 'app-dog-detail',
@@ -27,23 +29,29 @@ export class DogDetailComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private backButton: BackButtonComponent,
+    private dogService: DogService,
     private ownerService: OwnerService) {
   }
 
   ngOnInit() {
-    this.dog = {};
     this.route.params.subscribe(params => {
-
-      if(!isNaN(params['id'])) {
-        this.http.get('/api/dog/' + params['id']).subscribe(data => {
-          this.dog = data;
-        });
+      if(params['id'] != undefined) {
+        this.dogService.getDogById(params['id']).subscribe(dog => this.dog = dog);
+      } else {
+        this.dog = {};
       }
     });
     this.http.get('/api/breed').subscribe(data => {
       this.breeds = data;
     });
   }
+
+  update() {
+    this.dog.owner = this.dog.owner.firstname + ' ' + this.dog.owner.lastname;
+    this.dogService.update(this.dog).subscribe();
+  }
+
+  ownerFormatter = (value: any) => {console.log('value ' + value)};
 
   parseOwnerSearch = (value: any) => {
     if(value.firstname) {
@@ -59,7 +67,7 @@ export class DogDetailComponent implements OnInit {
   //https://codecraft.tv/courses/angular/http/http-with-observables/
   searchOwner = (text$: Observable<any>) =>
       text$
-        .debounceTime(300)
+        .debounceTime(500)
         .distinctUntilChanged()
-    .switchMap(term => term.length < 2 ? [] : this.ownerService.filterOwner(term));
+    .switchMap(term => term.length < 4 ? [] : this.ownerService.filterOwner(term));
 }

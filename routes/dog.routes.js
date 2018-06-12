@@ -38,8 +38,11 @@ router.get('/filter/:filter', function(req, res, next) {
 
 /* SAVE DOG */
 router.post('/', function(req, res, next) {
-  Dog.create(req.body, function(err, post) {
-    if (err) return next(err);
+  Dog.create(new Dog(req.body), function(err, post) {
+    if (err) {
+      console.error(err);
+      return next(err);
+    }
     res.json(post);
   });
 });
@@ -47,7 +50,10 @@ router.post('/', function(req, res, next) {
 /* UPDATE DOG */
 router.put('/:id', function(req, res, next) {
   Dog.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
+    if (err) {
+      console.error(err);
+      return next(err);
+    }
     res.json(post);
   });
 });
