@@ -1,9 +1,14 @@
 <div class="dog-detail">
-
   <div class="container-fluid">
     <back-button></back-button>
     <h1>{{ dog.pedigreeName }}</h1>
   </div>
+
+
+  <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngIf="alert" class="alert-float">
+    {{ alert.message }}
+  </ngb-alert>
+
   <div class="container-fluid">
     <div class="row">
 
@@ -33,9 +38,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Owner</span>
           </div>
-          <input [(ngModel)]="dog.owner" [ngbTypeahead]="searchOwner"
-          [resultFormatter]="parseOwnerSearch" [inputFormatter]="parseOwnerSearch"
-            type="text" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="basic-addon1">
+          <input [(ngModel)]="dog.owner" [ngbTypeahead]="searchOwner" [resultFormatter]="parseOwnerSearch" [inputFormatter]="parseOwnerSearch" type="text" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
@@ -47,19 +50,31 @@
           <option *ngFor="let breed of breeds" value="{{breed}}">{{breed}}</option>
         </select>
         </div>
-        <input type="hidden" name="_id" id="_id" value="{{ dog._id }}"/>
 
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Birthdate</span>
+          </div>
 
+          <input class="form-control" placeholder="yyyy-mm-dd" name="d2" #c2="ngModel" [(ngModel)]="dog.birthdate" ngbDatepicker #d2="ngbDatepicker">
+
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+              <i class="far fa-calendar-alt"></i>
+            </button>
+          </div>
+        </div>
+        <input type="hidden" name="_id" id="_id" value="{{ dog._id }}" />
       </div>
       <div class="col">
 
       </div>
     </div>
-    <div class="row" >
+    <div class="row">
       <div class="col" style="text-align: right">
-        <button type="button" class="btn btn-primary" *ngIf="dog._id" (click)="update()">Update</button>
+        <button type="button" class="btn btn-primary" *ngIf="dog._id" (click)="update()" [disabled]="buttonDisabled">Update</button>
 
-        <button type="button" class="btn btn-success" *ngIf="!dog._id" (click)="save()">Save</button>
+        <button type="button" class="btn btn-success" *ngIf="!dog._id" (click)="save()" [disabled]="buttonDisabled">Save</button>
       </div>
       <div class="col">
       </div>

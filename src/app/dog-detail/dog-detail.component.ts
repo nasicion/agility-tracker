@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
+import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -11,6 +13,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
+import { AbstractBaseFormComponent } from "../abstractbaseform.component";
 import { BackButtonComponent } from "../back-button/back-button.component";
 import { OwnerService } from "../owner.service";
 import { DogService } from "../dog.service";
@@ -19,11 +22,14 @@ import { DogService } from "../dog.service";
 @Component({
   selector: 'app-dog-detail',
   templateUrl: './dog-detail.component.html',
-  styleUrls: ['./dog-detail.component.css']
+  styleUrls: ['./dog-detail.component.css'],
+  providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}]
+
 })
-export class DogDetailComponent implements OnInit {
+export class DogDetailComponent extends AbstractBaseFormComponent implements OnInit {
   dog: any;
   breeds: any;
+
 
   constructor(
     private http: HttpClient,
@@ -31,14 +37,15 @@ export class DogDetailComponent implements OnInit {
     private backButton: BackButtonComponent,
     private dogService: DogService,
     private ownerService: OwnerService) {
+      super();
   }
 
   ngOnInit() {
+    this.dog = {};
+
     this.route.params.subscribe(params => {
       if(params['id'] != undefined) {
-        this.dogService.getDogById(params['id']).subscribe(dog => this.dog = dog);
-      } else {
-        this.dog = {};
+        this.dogService.getDogById(params['id']).subscribe(dog => {this.dog = dog; this.dog.birthdate = new Date(this.dog.birthdate)}); // Temporary Fix, probable fixable by defining the Dog class
       }
     });
     this.http.get('/api/breed').subscribe(data => {
@@ -47,11 +54,30 @@ export class DogDetailComponent implements OnInit {
   }
 
   update() {
-    this.dog.owner = this.dog.owner.firstname + ' ' + this.dog.owner.lastname;
-    this.dogService.update(this.dog).subscribe();
+    this.dog.owner = this.ownerFormatter(this.dog.owner);
+    this.dogService.update(this.dog).subscribe(response => {
+      this.buttonDisabled = true;
+      this.showAlert("Dog updated succesfuly", "success")
+      console.log('response ' + JSON.stringify(response));
+    },
+    error => {
+      this.showAlert(error.error.message, "danger")
+      console.log('error ' + JSON.stringify(error));
+    });
   }
 
-  ownerFormatter = (value: any) => {console.log('value ' + value)};
+  save() {
+    this.dog.owner = this.ownerFormatter(this.dog.owner);
+    this.dogService.save(this.dog).subscribe();
+  }
+
+  ownerFormatter = (value: any) => {
+    if(value.firstname) {
+      return value.firstname + ' ' + value.lastname
+    } else {
+      return value;
+    }
+  };
 
   parseOwnerSearch = (value: any) => {
     if(value.firstname) {

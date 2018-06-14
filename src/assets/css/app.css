@@ -33,3 +33,11 @@ table > tbody > tr {
 .dog-detail .input-group-text {
   width: 8em;
 }
+
+
+
+.alert-float {
+  position: absolute;
+  top: 4em;
+  right: 1em;
+}
