@@ -5,12 +5,12 @@ import { Observable }     from 'rxjs/Observable';
 @Injectable({
   providedIn: 'root'
 })
-export class OwnerService {
+export class GuideService {
 
   constructor(private http:HttpClient) { }
 
   filterOwner(filter:String):Observable<any> {
-    return this.http.get('/api/owner/filter/' + filter);
+    return this.http.get('/api/guide/filter/' + filter);
   }
 
   private extractData(res: Response) {

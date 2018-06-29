@@ -1,5 +1,6 @@
 body {
     margin-bottom:50px;
+    overflow-x: hidden;
 }
 
 footer {
@@ -34,10 +35,14 @@ table > tbody > tr {
   width: 8em;
 }
 
-
+#alertcontainer {
+  overflow: hidden;
+  clear:both;
+}
 
 .alert-float {
   position: absolute;
   top: 4em;
   right: 1em;
+  overflow: hidden;
 }

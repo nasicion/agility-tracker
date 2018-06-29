@@ -1,13 +1,13 @@
+
 <div class="dog-detail">
   <div class="container-fluid">
     <back-button></back-button>
     <h1>{{ dog.pedigreeName }}</h1>
   </div>
 
-
-  <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngIf="alert" class="alert-float">
-    {{ alert.message }}
-  </ngb-alert>
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngIf="alert" class="alert-float" [@alertState]="alert.state">
+      {{ alert.message }}
+    </ngb-alert>
 
   <div class="container-fluid">
     <div class="row">
@@ -17,35 +17,35 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Pedigree</span>
           </div>
-          <input [(ngModel)]="dog.pedigree" type="text" class="form-control" placeholder="Pedigree" aria-label="Pedigree" aria-describedby="basic-addon1">
+          <input [(ngModel)]="dog.pedigree" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Pedigree" aria-label="Pedigree" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Pedigree Name</span>
           </div>
-          <input [(ngModel)]="dog.pedigreeName" type="text" class="form-control" placeholder="Pedigree Name" aria-label="Pedigree Name" aria-describedby="basic-addon1">
+          <input [(ngModel)]="dog.pedigreeName" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Pedigree Name" aria-label="Pedigree Name" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Name</span>
           </div>
-          <input [(ngModel)]="dog.name" type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+          <input [(ngModel)]="dog.name" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Owner</span>
           </div>
-          <input [(ngModel)]="dog.owner" [ngbTypeahead]="searchOwner" [resultFormatter]="parseOwnerSearch" [inputFormatter]="parseOwnerSearch" type="text" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="basic-addon1">
+          <input [(ngModel)]="dog.owner" (ngModelChange)="inputChanged($event)" [ngbTypeahead]="searchOwner" [resultFormatter]="parseOwnerSearch" [inputFormatter]="parseOwnerSearch" type="text" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Breed</span>
           </div>
-          <select [(ngModel)]="dog.breed" class="custom-select" id="inputGroupSelect01">
+          <select [(ngModel)]="dog.breed" (ngModelChange)="inputChanged($event)" class="custom-select" id="inputGroupSelect01">
           <option selected>Choose...</option>
           <option *ngFor="let breed of breeds" value="{{breed}}">{{breed}}</option>
         </select>
@@ -56,7 +56,7 @@
             <span class="input-group-text" id="basic-addon1">Birthdate</span>
           </div>
 
-          <input class="form-control" placeholder="yyyy-mm-dd" name="d2" #c2="ngModel" [(ngModel)]="dog.birthdate" ngbDatepicker #d2="ngbDatepicker">
+          <input class="form-control" (ngModelChange)="inputChanged($event)" placeholder="yyyy-mm-dd" name="d2" #c2="ngModel" [(ngModel)]="dog.birthdate" ngbDatepicker #d2="ngbDatepicker">
 
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">

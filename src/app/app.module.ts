@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,22 +12,39 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DogDetailComponent } from './dog-detail/dog-detail.component';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { GuideComponent } from './guide/guide.component';
+import { GuideDetailComponent } from './guide-detail/guide-detail.component';
 
 const appRoutes: Routes = [
   {
     path: 'dog',
     component: DogComponent,
-    data: { title: 'Dog List' }
+    data: { title: 'Dogs List' }
   },
   {
     path: 'dog/new',
     component: DogDetailComponent,
-    data: { title: 'Dog Detail' }
+    data: { title: 'New Dog' }
   },
   {
     path: 'dog/:id',
     component: DogDetailComponent,
     data: { title: 'Dog Detail' }
+  },
+  {
+    path: 'guide',
+    component: GuideComponent,
+    data: { title: 'Guides List' }
+  },
+  {
+    path: 'guide/new',
+    component: GuideDetailComponent,
+    data: { title: 'New Guide' }
+  },
+  {
+    path: 'guide/:id',
+    component: DogDetailComponent,
+    data: { title: 'Guide Detail' }
   },
   { path: '',
     component: DashboardComponent
@@ -42,10 +60,13 @@ const appRoutes: Routes = [
     DashboardComponent,
     NotFoundComponent,
     DogDetailComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    GuideComponent,
+    GuideDetailComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes,

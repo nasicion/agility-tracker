@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var ObjectIdSchema = mongoose.Schema.ObjectId;
 var ObjectId = mongoose.Types.ObjectId;
 
-var OwnerSchema = new mongoose.Schema({
+var GuideSchema = new mongoose.Schema({
   firstname: String,
   lastname: String,
   motherLastname: String,
@@ -12,4 +12,4 @@ var OwnerSchema = new mongoose.Schema({
   phone: String
 });
 
-module.exports = mongoose.model('Owner', OwnerSchema);
+module.exports = mongoose.model('Guide', GuideSchema);

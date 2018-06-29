@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Owner = require('../models/Owner.js');
+var Guide = require('../models/Guide.js');
 
 
 /* GET ALL OwnerS */
