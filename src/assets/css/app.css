@@ -4,15 +4,16 @@ body {
 }
 
 footer {
+    border-top: 1px solid #DDD;
     position: fixed;
-    height: 50px;
+    height: 3em;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    margin-bottom: 1.5em;
     text-align: center;
+    background: #EEE;
+    padding-top: 0.5em;
 }
-
 
 .centered {
   margin: 8em;

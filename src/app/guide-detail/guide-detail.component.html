@@ -1,3 +1,91 @@
-<p>
-  guide-detail works!
-</p>
+
+<div class="dog-detail">
+  <div class="container-fluid">
+    <back-button></back-button>
+    <h1>{{ guide.pedigreeName }}</h1>
+  </div>
+
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngIf="alert" class="alert-float" [@alertState]="alert.state">
+      {{ alert.message }}
+    </ngb-alert>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="data col">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Firstname</span>
+          </div>
+          <input [(ngModel)]="guide.firstname" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Firstname" aria-label="Pedigree" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Lastname</span>
+          </div>
+          <input [(ngModel)]="guide.lastname" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Lastname" aria-label="Pedigree Name" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">I.D.</span>
+          </div>
+          <input [(ngModel)]="guide.identityDocument" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Identity Document" aria-label="Name" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Gender</span>
+          </div>
+          <select [(ngModel)]="guide.gender" (ngModelChange)="inputChanged($event)" class="custom-select" id="inputGroupSelect01">
+            <option selected>Choose...</option>
+            <option value="F">F</option>
+            <option value="M">M</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Birthdate</span>
+          </div>
+
+          <input class="form-control" (ngModelChange)="inputChanged($event)" placeholder="Birthdate" name="d2" #c2="ngModel" [(ngModel)]="guide.birthdate" ngbDatepicker #d2="ngbDatepicker">
+
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+              <i class="far fa-calendar-alt"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">E-Mail</span>
+          </div>
+          <input [(ngModel)]="guide.email" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="E-Mail" aria-label="Name" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Phone</span>
+          </div>
+          <input [(ngModel)]="guide.phone" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Phone" aria-label="Name" aria-describedby="basic-addon1">
+        </div>
+
+        <input type="hidden" name="_id" id="_id" value="{{ guide._id }}" />
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" style="text-align: right">
+        <button type="button" class="btn btn-primary" *ngIf="guide._id" (click)="update()" [disabled]="buttonDisabled">Update</button>
+
+        <button type="button" class="btn btn-success" *ngIf="!guide._id" (click)="save()" [disabled]="buttonDisabled">Save</button>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</div>

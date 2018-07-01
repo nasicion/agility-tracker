@@ -29,6 +29,7 @@ export class DogComponent implements OnInit {
   }
 
   dogSelection(id) {
+    console.log(id);
     this.router.navigate(['/dog/', id]);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable }     from 'rxjs/Observable';
 
 @Injectable({
@@ -13,9 +13,18 @@ export class GuideService {
     return this.http.get('/api/guide/filter/' + filter);
   }
 
-  private extractData(res: Response) {
-    console.log(res);
-    let body = res.json();
-    return body || { };
+  get(id:string) {
+    return this.http.get('/api/guide/' + id);
+  }
+
+  getGuides(page?:number, pageSize?:number):Observable<any> {
+    var params = new HttpParams();
+
+    if(page)
+    params = params.set('page', page.toString());
+    if(pageSize)
+    params = params.set('pageSize', pageSize.toString());
+
+    return this.http.get('/api/guide', {params: params});
   }
 }

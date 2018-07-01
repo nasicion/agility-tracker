@@ -1,3 +1,47 @@
-<p>
-  guide works!
-</p>
+<div *ngIf="guides; else noGuides">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm">
+        <input class="form-control" type="text" name="search" placeholder="Search guide" (keyup)="filterGuides($event)" />
+      </div>
+      <div class="col-sm"></div>
+      <div class="col-sm" style="text-align:right">
+        <a href="/guide/new" name="button" class="btn btn-outline-success">
+          Add <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div class="row top-space">
+      <div class="col-sm">
+        <ngb-pagination
+          class="d-flex justify-content-center" [collectionSize]="total"
+          [(page)]="page" [maxSize]="10" [rotate]="true"
+          (pageChange)="updateList()"[boundaryLinks]="true" *ngIf="showPagination"></ngb-pagination>
+        <table class="table-hover table-striped table">
+          <thead class="thead-light">
+            <!-- <td>Id</td> -->
+            <td>Name</td>
+            <td>Lastname</td>
+            <td>Country</td>
+            <td>E-Mail</td>
+            <td>Phone</td>
+          </thead>
+          <tbody>
+            <tr *ngFor="let guide of guides" (click)="guideSelection(guide._id)">
+              <!-- <td>{{ dog._id }}</td> -->
+              <td>{{ guide.firstname }} </td>
+              <td>{{ guide.lastname }}</td>
+              <td>{{ guide.country }}</td>
+              <td>{{ guide.email }}</td>
+              <td>{{ guide.phone }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <ng-template #noGuides>
+      <h1>No Guides :(</h1>
+    </ng-template>
+  </div>
+</div>

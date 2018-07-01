@@ -43,7 +43,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'guide/:id',
-    component: DogDetailComponent,
+    component: GuideDetailComponent,
     data: { title: 'Guide Detail' }
   },
   { path: '',

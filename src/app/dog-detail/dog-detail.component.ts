@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
 import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
@@ -28,10 +28,7 @@ import { DogService } from "../dog.service";
   ]
 })
 export class DogDetailComponent extends AbstractBaseFormComponent implements OnInit  {
-  @Input()
   dog: any;
-  @Input()
-  test: string;
   breeds: any;
 
   constructor(

@@ -6,15 +6,38 @@ var Guide = require('../models/Guide.js');
 
 /* GET ALL OwnerS */
 router.get('/', function(req, res, next) {
-  Owner.find(function(err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  // console.log(req.query.pageSize);
+
+  if(req.query.page) {
+    var options = {};
+    options.page = Number(req.query.page);
+    if(req.query.pageSize)
+      options.limit = Number(req.query.pageSize);
+    Guide.paginate({}, options,
+      function(err, guides) {
+        if(err) return next(err);
+        guides.guides = guides.docs;
+        guides.docs = undefined;
+        res.json(guides);
+      });
+  } else {
+    Guide.find(function(err, guides) {
+      if(err) return next(err);
+      var response = {"guides" : guides};
+      res.json(response);
+    });
+  }
+
+
+
+
+
+
 });
 
 /* GET SINGLE Owner BY ID */
 router.get('/:id', function(req, res, next) {
-  Owner.findById(req.params.id, function(err, post) {
+  Guide.findById(req.params.id, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -28,7 +51,7 @@ router.get('/filter/:filter', function(req, res, next) {
       {lastname:{$regex: req.params.filter, $options: 'i'}}
     ]}
 
-  Owner.find(query, function(err, post) {
+  Guide.find(query, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -36,15 +59,19 @@ router.get('/filter/:filter', function(req, res, next) {
 
 /* SAVE Owner */
 router.post('/', function(req, res, next) {
-  Owner.create(new Owner(req.body), function(err, post) {
-    if (err) return next(err);
+  console.log('here');
+  Guide.create(new Guide(req.body), function(err, post) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
     res.json(post);
   });
 });
 
 /* UPDATE Owner */
 router.put('/:id', function(req, res, next) {
-  Owner.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
+  Guide.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -52,7 +79,7 @@ router.put('/:id', function(req, res, next) {
 
 /* DELETE BOOK */
 router.delete('/:id', function(req, res, next) {
-  Owner.findByIdAndRemove(req.params.id, req.body, function(err, post) {
+  Guide.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
