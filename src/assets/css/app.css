@@ -13,6 +13,7 @@ footer {
     text-align: center;
     background: #EEE;
     padding-top: 0.5em;
+    z-index: 10000;
 }
 
 .centered {
@@ -46,4 +47,8 @@ table > tbody > tr {
   top: 4em;
   right: 1em;
   overflow: hidden;
+}
+
+.cal-button {
+  background-color: #E9ECEF;
 }

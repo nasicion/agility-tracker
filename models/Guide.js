@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 //https://medium.com/hexient-labs/pagination-with-mongoose-b00c5207371e
 var mongoosePaginate = require('mongoose-paginate');
-var ObjectIdSchema = mongoose.Schema.ObjectId;
-var ObjectId = mongoose.Types.ObjectId;
 
 var GuideSchema = new mongoose.Schema({
   firstname: String,

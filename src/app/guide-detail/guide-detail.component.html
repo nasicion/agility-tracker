@@ -40,8 +40,8 @@
           </div>
           <select [(ngModel)]="guide.gender" (ngModelChange)="inputChanged($event)" class="custom-select" id="inputGroupSelect01">
             <option selected>Choose...</option>
-            <option value="F">F</option>
-            <option value="M">M</option>
+            <option value="F">Female</option>
+            <option value="M">Male</option>
           </select>
         </div>
         <div class="input-group mb-3">
@@ -51,7 +51,7 @@
 
           <input class="form-control" (ngModelChange)="inputChanged($event)" placeholder="Birthdate" name="d2" #c2="ngModel" [(ngModel)]="guide.birthdate" ngbDatepicker #d2="ngbDatepicker">
 
-          <div class="input-group-append">
+          <div class="input-group-append cal-button">
             <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
               <i class="far fa-calendar-alt"></i>
             </button>
