@@ -38,7 +38,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Owner</span>
           </div>
-          <input [(ngModel)]="dog.owner" (ngModelChange)="inputChanged($event)" [ngbTypeahead]="searchOwner" [resultFormatter]="parseOwnerSearch" [inputFormatter]="parseOwnerSearch" type="text" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="basic-addon1">
+          <input [(ngModel)]="owner" (ngModelChange)="inputChanged($event)" [ngbTypeahead]="searchOwner" [resultFormatter]="parseOwnerSearch" [inputFormatter]="parseOwnerSearch" type="text" class="form-control" placeholder="Owner" aria-label="Owner" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">

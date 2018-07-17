@@ -9,7 +9,8 @@ var GuideSchema = new mongoose.Schema({
   gender: String,
   birthdate: { type: Date, default: Date.now },
   email: String,
-  phone: String
+  phone: String,
+  img: { data: Buffer, contentType: String}
 });
 
 GuideSchema.plugin(mongoosePaginate);

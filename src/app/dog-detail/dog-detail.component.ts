@@ -30,6 +30,7 @@ import { DogService } from "../dog.service";
 export class DogDetailComponent extends AbstractBaseFormComponent implements OnInit  {
   dog: any;
   breeds: any;
+  owner: any;
 
   constructor(
     private http: HttpClient,
@@ -44,7 +45,13 @@ export class DogDetailComponent extends AbstractBaseFormComponent implements OnI
     this.dog = {};
     this.route.params.subscribe(params => {
       if(params['id'] != undefined) {
-        this.dogService.getDogById(params['id']).subscribe(dog => {this.dog = dog; this.dog.birthdate = new Date(this.dog.birthdate)}); // Temporary Fix, probably fixable by defining the Dog class
+        this.dogService.getDogById(params['id']).subscribe(
+          dog => {
+            this.dog = dog;
+            this.dog.birthdate = new Date(this.dog.birthdate); // Temporary Fix, probably fixable by defining the Dog class
+            this.guideService.get(dog['owner']).subscribe( owner => this.owner = owner);
+
+          });
       }
     });
     this.http.get('/api/breed').subscribe(data => {
@@ -53,11 +60,9 @@ export class DogDetailComponent extends AbstractBaseFormComponent implements OnI
   }
 
   update() {
-    this.dog.owner = this.ownerFormatter(this.dog.owner);
     this.dogService.update(this.dog).subscribe(response => {
       this.buttonDisabled = true;
       this.showAlert("Dog updated succesfuly", "success")
-      //console.log('response ' + JSON.stringify(response));
     },
     error => {
       this.showAlert(error.error.message, "danger")
@@ -66,20 +71,19 @@ export class DogDetailComponent extends AbstractBaseFormComponent implements OnI
   }
 
   save() {
-    this.dog.owner = this.ownerFormatter(this.dog.owner);
-    this.dogService.save(this.dog).subscribe();
+    this.dogService.save(this.dog).subscribe(response => {
+      this.buttonDisabled = true;
+      this.showAlert("Dog saved succesfuly", "success")
+    },
+    error => {
+      this.showAlert(error.error.message, "danger")
+      console.log('error ' + JSON.stringify(error));
+    });
   }
-
-  ownerFormatter = (value: any) => {
-    if(value.firstname) {
-      return value.firstname + ' ' + value.lastname
-    } else {
-      return value;
-    }
-  };
 
   parseOwnerSearch = (value: any) => {
     if(value.firstname) {
+        this.dog.owner = value._id;
         return value.firstname + ' ' + value.lastname
     } else if(value) {
       return value;
@@ -87,6 +91,7 @@ export class DogDetailComponent extends AbstractBaseFormComponent implements OnI
       '';
     }
   };
+
   //https://stackoverflow.com/questions/41814182/extract-data-from-json-for-ng-bootstrap-typeahead
   //https://ng-bootstrap.github.io/#/components/typeahead/examples
   //https://codecraft.tv/courses/angular/http/http-with-observables/

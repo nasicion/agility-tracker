@@ -71,6 +71,16 @@
           </div>
           <input [(ngModel)]="guide.phone" (ngModelChange)="inputChanged($event)" type="text" class="form-control" placeholder="Phone" aria-label="Name" aria-describedby="basic-addon1">
         </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Picture</span>
+          </div>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01"
+              (change)="inputChanged($event); pictureChanged($event)">
+            <label class="custom-file-label" for="inputGroupFile01">{{ picture.name }}</label>
+          </div>
+        </div>
 
         <input type="hidden" name="_id" id="_id" value="{{ guide._id }}" />
       </div>

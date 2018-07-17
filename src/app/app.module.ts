@@ -14,6 +14,7 @@ import { DogDetailComponent } from './dog-detail/dog-detail.component';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { GuideComponent } from './guide/guide.component';
 import { GuideDetailComponent } from './guide-detail/guide-detail.component';
+import { CompetitionComponent } from './competition/competition.component';
 
 const appRoutes: Routes = [
   {
@@ -46,6 +47,11 @@ const appRoutes: Routes = [
     component: GuideDetailComponent,
     data: { title: 'Guide Detail' }
   },
+  {
+    path: 'competition',
+    component: CompetitionComponent,
+    data: { title: 'Competitions List' }
+  },
   { path: '',
     component: DashboardComponent
   },
@@ -62,7 +68,8 @@ const appRoutes: Routes = [
     DogDetailComponent,
     BackButtonComponent,
     GuideComponent,
-    GuideDetailComponent
+    GuideDetailComponent,
+    CompetitionComponent
   ],
   imports: [
     BrowserModule,

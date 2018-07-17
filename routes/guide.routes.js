@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Guide = require('../models/Guide.js');
+var multer  = require('multer');
+var upload = multer({ dest: '/tmp/'});
 
 
 /* GET ALL OwnerS */
@@ -27,12 +29,6 @@ router.get('/', function(req, res, next) {
       res.json(response);
     });
   }
-
-
-
-
-
-
 });
 
 /* GET SINGLE Owner BY ID */
@@ -59,9 +55,9 @@ router.get('/filter/:filter', function(req, res, next) {
 
 /* SAVE Owner */
 router.post('/', function(req, res, next) {
-  console.log('here');
   Guide.create(new Guide(req.body), function(err, post) {
     if (err) {
+      console.log('Error');
       console.log(err);
       return next(err);
     }
@@ -71,6 +67,27 @@ router.post('/', function(req, res, next) {
 
 /* UPDATE Owner */
 router.put('/:id', function(req, res, next) {
+  Guide.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/* UPDATE Guide Picture */
+router.post('/:id/picture', upload.single('file'), function(req, res, next) {
+  console.log('Updating picture for guide ' + req.params.id);
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false
+    });
+
+  } else {
+    console.log('file received');
+    return res.send({
+      success: true
+    })
+  }
   Guide.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);

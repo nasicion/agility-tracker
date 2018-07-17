@@ -13,7 +13,9 @@ import { GuideService } from "../guide.service";
   providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}]
 })
 export class GuideDetailComponent extends AbstractBaseFormComponent implements OnInit {
-  guide:any;
+  guide: any;
+  picture: File;
+  file: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +26,7 @@ export class GuideDetailComponent extends AbstractBaseFormComponent implements O
 
   ngOnInit() {
     this.guide = {};
+    this.picture = new File(["0"], "none", {type: "text/plain"});
     this.route.params.subscribe(params => {
       if(params['id'] != undefined) {
         this.guideService.get(params['id']).subscribe(guide => {this.guide = guide; this.guide.birthdate = new Date(this.guide.birthdate)}); // Temporary Fix, probably fixable by defining the Guide class
@@ -31,4 +34,18 @@ export class GuideDetailComponent extends AbstractBaseFormComponent implements O
     });
   }
 
+  save() {
+    this.guideService.save(this.guide).subscribe(data => {
+      console.log(data);
+      this.guideService.updatePicture(data._id, this.picture).subscribe();
+    });
+  }
+
+  update() {
+
+  }
+
+  pictureChanged(event) {
+    this.picture = <File> event.originalTarget.files[0];
+  }
 }
