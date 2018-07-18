@@ -2,8 +2,14 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Guide = require('../models/Guide.js');
-var multer  = require('multer');
-var upload = multer({ dest: '/tmp/'});
+
+//require multer for the file uploads
+var multer = require('multer');
+// set the directory for the uploads to the uploaded to
+var DIR = './uploads/';
+//define the type of upload multer would be doing and pass in its destination, in our case, its a single file with the name photo
+var upload = multer({dest: DIR});
+var fs = require('fs');
 
 
 /* GET ALL OwnerS */
@@ -33,7 +39,7 @@ router.get('/', function(req, res, next) {
 
 /* GET SINGLE Owner BY ID */
 router.get('/:id', function(req, res, next) {
-  Guide.findById(req.params.id, function(err, post) {
+  Guide.findById(req.params.id, '-img',function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -74,7 +80,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 /* UPDATE Guide Picture */
-router.post('/:id/picture', upload.single('file'), function(req, res, next) {
+router.post('/:id/picture', upload.single('picture'), function(req, res, next) {
   console.log('Updating picture for guide ' + req.params.id);
   if (!req.file) {
     console.log("No file received");
@@ -84,13 +90,33 @@ router.post('/:id/picture', upload.single('file'), function(req, res, next) {
 
   } else {
     console.log('file received');
-    return res.send({
-      success: true
-    })
+    console.log(req.file);
+    var picture = req.file;
+    Guide.findByIdAndUpdate(req.params.id,
+      {
+        img: {
+          data: fs.readFileSync(picture.path),
+          contentType: picture.mimetype
+        }
+      },
+      function(err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
   }
-  Guide.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
+
+});
+
+/* GET SINGLE Owner BY ID */
+router.get('/:id/picture', function(req, res, next) {
+  Guide.findById(req.params.id, 'img', function(err, picture) {
     if (err) return next(err);
-    res.json(post);
+    if(picture.img.data != undefined) {
+      res.contentType(picture.img.contentType);
+      res.send(picture.img.data);
+    } else {
+      res.sendStatus(404);
+    }
   });
 });
 

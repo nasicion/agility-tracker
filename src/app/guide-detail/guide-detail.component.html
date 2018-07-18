@@ -85,7 +85,7 @@
         <input type="hidden" name="_id" id="_id" value="{{ guide._id }}" />
       </div>
       <div class="col">
-
+        <img *ngIf="guide._id" src="/api/guide/{{guide._id}}/picture" height="100px"/>
       </div>
     </div>
     <div class="row">

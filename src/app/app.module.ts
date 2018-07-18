@@ -43,6 +43,10 @@ const appRoutes: Routes = [
     data: { title: 'New Guide' }
   },
   {
+    path: 'guide/:id/picture',
+    redirectTo: '/api/guide/:id/picture'
+  },
+  {
     path: 'guide/:id',
     component: GuideDetailComponent,
     data: { title: 'Guide Detail' }

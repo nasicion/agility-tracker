@@ -36,13 +36,19 @@ export class GuideDetailComponent extends AbstractBaseFormComponent implements O
 
   save() {
     this.guideService.save(this.guide).subscribe(data => {
-      console.log(data);
+      this.guide._id = data._id;
       this.guideService.updatePicture(data._id, this.picture).subscribe();
     });
   }
 
   update() {
-
+    this.guideService.update(this.guide).subscribe(data => {
+      if(this.picture)
+        this.guideService.updatePicture(data._id, this.picture).subscribe(response => {
+          console.log('Update Picture Response');
+          console.log(response);
+        });
+    });
   }
 
   pictureChanged(event) {

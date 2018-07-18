@@ -38,16 +38,22 @@ export class GuideService {
   }
 
   save(guide):Observable<any> {
-    return this.http.post('/api/guide', guide, );
+    return this.http.post('/api/guide', guide);
   }
 
   updatePicture(id, picture) {
     console.log(id);
     console.log(picture);
-    return this.http.post('/api/guide/' + id + '/picture', picture);
+
+    let input = new FormData();
+    // This can be done a lot prettier; for example automatically assigning values by looping through `this.form.controls`, but we'll keep it as simple as possible here
+    input.append('name', 'Bob');
+    input.append('picture', picture);
+
+    return this.http.post('/api/guide/' + id + '/picture', input);
   }
 
-  update():Observable<any> {
-    return null;
+  update(guide):Observable<any> {
+    return this.http.put('/api/guide/' + guide._id, guide, );
   }
 }

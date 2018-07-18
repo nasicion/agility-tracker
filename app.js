@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+// var fileUpload = require('express-fileupload');
 
 var dogRoutes = require('./routes/dog.routes');
 var guideRoutes = require('./routes/guide.routes');
@@ -13,6 +14,7 @@ var app = express();
 let distDir = path.join(__dirname,'dist')
 
 app.use(logger('dev'));
+// app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 
